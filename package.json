@@ -1,0 +1,23 @@
+{
+  "name": "metris-base",
+  "version": "0.0.0",
+  "description": "The Metris Base is the hub that tracks requests to your webserver.",
+  "main": "base.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -c -w --recursive -r test/setup.js test/**/*.test.js"
+  },
+  "keywords": [
+    "performance",
+    "metrics",
+    "analytics",
+    "dashboard"
+  ],
+  "author": "Niroshan Sugirtharatnam",
+  "license": "private",
+  "devDependencies": {
+    "chai": "^1.9.1"
+  }
+}
