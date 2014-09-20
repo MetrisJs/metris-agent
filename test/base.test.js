@@ -20,7 +20,7 @@ describe("Base", function () {
     it("should verify that httpServer is a Server object", function () {
       metrisBase = new metris.Base();
 
-      expect(function() {metrisBase.server = 'klingon';}).to.throw("httpServer must be a http server object.");
+      expect(function() {metrisBase.server = 'fake object';}).to.throw("httpServer must be a http server object.");
     });
   });
   describe("get: server", function () {
@@ -40,13 +40,12 @@ describe("Base", function () {
   });
 
   describe("set: name", function () {
-    it("should assign the server name if the serverName parameter is given", function () {
-      var someServerName = "some name";
+    /**
+     * @todo create tests for this once they become necessary. removed old test because they're no longer relevant
+     */
+    it("should accept only ascii or utf8", function () {});
+    it("should accept be between 1 & 20 chars long", function () {});
 
-      metrisBase = new metris.Base(httpServer, someServerName);
-
-      expect(metrisBase._name).to.equal(someServerName);
-    });
   });
 
 });
