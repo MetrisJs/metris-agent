@@ -66,4 +66,6 @@ Base.prototype.parseArguments = function (httpServer, baseName) {
 };
 */
 
+Base.prototype._generateRandomKeyForIncomingRequest = require("./lib/generateIdForRequest.js");
+
 module.exports = Base;

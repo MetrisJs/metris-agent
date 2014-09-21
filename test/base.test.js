@@ -2,7 +2,9 @@
 
 var metris = require("../../metris/index.js"),
   metrisBase,
-  httpServer = require('http').createServer();
+  httpServer = require('http').createServer(),
+  EventEmitter = require('events').EventEmitter,
+  mockServer;
 
 
 describe("Base", function () {
@@ -55,8 +57,40 @@ describe("Base", function () {
   /*
    **************************** Core Metris Base Functionalities ****************************
    */
-  describe("initializeIncomingRequest()", function () {
-    it("sets the time of incoming request as a private field in request");
+  describe("private functions", function () {
+    it("get a randomly generated key for this request", function () {
+      var randomKey = metrisBase._generateRandomKeyForIncomingRequest();
+
+      expect(randomKey).to.be.a.string;
+    });
+  });
+
+  describe("newIncomingHttpRequest()", function () {
+    beforeEach(function () {
+      metrisBase = new metris.Base();
+      mockServer = new EventEmitter();
+    });
+
+    it("can only be called once per incoming request", function () {
+      /** @todo */
+    });
+
+
+    it("provides a method to retrieve request given its key", function () {
+
+    });
+
+    it.skip("sets the time of incoming request as a private field in request", function () {
+      var eventEmitter = require('events').EventEmitter,
+        request = {},
+        response = {};
+
+      eventEmitter.on('request', function (request, response) {
+        metrisBase.initializeIncomingRequest(request, response);
+      });
+
+      expect(request._metris.startTime).to.be.a.number;
+    });
     it("adds the incoming request to a list of requests in the metris base");
 
 
