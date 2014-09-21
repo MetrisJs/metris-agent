@@ -1,5 +1,7 @@
 "use strict";
 
+var generateIdForRequest = require("./lib/generateIdForRequest.js");
+
 /**
  * Base Constructor
  *
@@ -66,11 +68,30 @@ function Base(httpServer, baseName) {
 }
 
 
+
 Base.prototype = {
   /**
    * @private
    */
-  _generateRandomKeyForIncomingRequest: require("./lib/generateIdForRequest.js")
+  _generateRandomKeyForIncomingRequest: function () {
+    return generateIdForRequest(this.name);
+  },
+
+  /**
+   *
+   * @param request
+   * @param response
+   */
+  newIncomingHttpRequest: function newIncomingHttpRequest(request, response) {
+
+    request._metris = {
+      startTime: Date.now(),
+      requestId: this._generateRandomKeyForIncomingRequest()
+
+    };
+
+
+  }
 };
 
 module.exports = Base;

@@ -20,8 +20,8 @@ describe("Base", function () {
   });
 
   /*
-   **************************** Configurations ****************************
-   */
+  **************************** Configurations ****************************
+                                                                        */
 
   describe("set: server", function () {
     it("should verify that httpServer is a Server object", function () {
@@ -76,8 +76,8 @@ describe("Base", function () {
 
 
   /*
-   **************************** Core Metris Base Functionalities ****************************
-   */
+  **************************** Core Metris Base Functionalities ****************************
+                                                                                          */
   describe("private functions", function () {
     it("get a randomly generated key for this request", function () {
       var randomKey = metrisBase._generateRandomKeyForIncomingRequest();
@@ -92,6 +92,25 @@ describe("Base", function () {
       mockServer = new EventEmitter();
     });
 
+    it("sets random id for this request", function () {
+      var request = {},
+        response = {};
+
+      metrisBase.newIncomingHttpRequest(request, response);
+
+      expect(request._metris.startTime).to.be.a('number');
+    });
+
+    it("sets a random request id for each request", function () {
+      var request = {},
+        response = {};
+
+      metrisBase.newIncomingHttpRequest(request, response);
+      console.log(request._metris);
+
+      expect(request._metris.requestId).to.be.a('string');
+    });
+
     it("can only be called once per incoming request", function () {
       /** @todo */
     });
@@ -101,18 +120,10 @@ describe("Base", function () {
       /** @todo */
     });
 
-    it.skip("sets the time of incoming request as a private field in request", function () {
-      var eventEmitter = require('events').EventEmitter,
-        request = {},
-        response = {};
 
-      eventEmitter.on('request', function (request, response) {
-        metrisBase.initializeIncomingRequest(request, response);
-      });
+    it("adds the incoming request to a list of requests in the metris base", function () {
 
-      expect(request._metris.startTime).to.be.a.number;
     });
-    it("adds the incoming request to a list of requests in the metris base");
 
 
     describe("sets a event handlers for all major request & response events that metris should be listening", function () {
