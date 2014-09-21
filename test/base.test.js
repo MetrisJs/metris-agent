@@ -16,6 +16,10 @@ describe("Base", function () {
     */
   });
 
+  /*
+   **************************** Configurations ****************************
+   */
+
   describe("set: server", function () {
     it("should verify that httpServer is a Server object", function () {
       metrisBase = new metris.Base();
@@ -48,4 +52,21 @@ describe("Base", function () {
 
   });
 
+  /*
+   **************************** Core Metris Base Functionalities ****************************
+   */
+  describe("initializeIncomingRequest()", function () {
+    it("sets the time of incoming request as a private field in request");
+    it("adds the incoming request to a list of requests in the metris base");
+
+
+    describe("sets a event handlers for all major request & response events that metris should be listening", function () {
+      it("listens to request event");
+      it("listens to end event");
+      it("listens to finish event");
+      it("listens to error event");
+    });
+
+
+  });
 });
