@@ -19,15 +19,17 @@ function Base(httpServer, baseName) {
 
   /**
    * "Pointer" to an http Server instance. These are the requests this base instance will listen to
+   * @private
    * @type {http.Server}
    */
-  var server = null;
+  var _server = null;
 
   /**
    * Name of this base. All requests to this base will be grouped under this name.
+   * @private
    * @type {string}
    */
-  var name = null;
+  var _name = null;
 
   //Setters & Getters
   this.__defineSetter__("server", function (httpServer) {
@@ -38,34 +40,37 @@ function Base(httpServer, baseName) {
       throw Error("httpServer must be a http server object.");
     }
 
-    server = httpServer;
+    _server = httpServer;
   });
   this.__defineGetter__("server", function () {
-    if (server === null) {
+    if (_server === null) {
       throw Error("this base instance does httpServer not set.");
     }
-    return server;
+    return _server;
+  });
+
+
+  this.__defineSetter__("name", function (serverName) {
+
+    if (typeof serverName !== "string") {
+      throw Error("the name must be a string.");
+    } else if ((serverName.length > 20) || (serverName.length < 1)) {
+      throw Error("name must be between 1-20 chars");
+    }
+
+    _name = serverName;
+  });
+  this.__defineGetter__("name", function () {
+    return _name;
   });
 }
 
 
-/*
-Base.prototype.parseArguments = function (httpServer, baseName) {
-  if (!httpServer) {
-    throw Error("Error: argument(s) missing.");
-  } else if (httpServer.constructor.name !== 'Server') {
-    throw Error("Error: httpServer must be a http server object.");
-  }
-
-  //Server object validated
-  this._server = httpServer;
-
-  /** @todo base name should be generated from ip and port if none given */
-/*
-  this._name = baseName || "";
+Base.prototype = {
+  /**
+   * @private
+   */
+  _generateRandomKeyForIncomingRequest: require("./lib/generateIdForRequest.js")
 };
-*/
-
-Base.prototype._generateRandomKeyForIncomingRequest = require("./lib/generateIdForRequest.js");
 
 module.exports = Base;

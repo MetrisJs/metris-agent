@@ -1,4 +1,5 @@
 "use strict";
+/*global describe, it, before, beforeEach, after, afterEach, expect, should */
 
 var metris = require("../../metris/index.js"),
   metrisBase,
@@ -49,10 +50,30 @@ describe("Base", function () {
     /**
      * @todo create tests for this once they become necessary. removed old test because they're no longer relevant
      */
-    it("should accept only ascii or utf8", function () {});
-    it("should accept be between 1 & 20 chars long", function () {});
+    it("name should accept only ascii or utf8", function () {
+      var fakeObject = {"fake": "object"};
+      expect(function () {metrisBase.name = fakeObject}).to.throw(/name must be a string/);
 
+    });
+    it("should accept be between 1 & 20 chars long", function () {
+      var baseName = "123456789012345678901";
+      expect(function() {metrisBase.name = baseName;}).to.throw(/name must be between 1-20 chars/);
+
+      var baseName = "";
+      expect(function() {metrisBase.name = baseName;}).to.throw(/name must be between 1-20 chars/);
+    });
   });
+
+  describe("get: name", function () {
+    it("should return name from private variable", function () {
+      var newBaseName = "some new name";
+
+      metrisBase.name = newBaseName;
+
+      expect(metrisBase.name).to.equal(newBaseName);
+    });
+  });
+
 
   /*
    **************************** Core Metris Base Functionalities ****************************
@@ -77,7 +98,7 @@ describe("Base", function () {
 
 
     it("provides a method to retrieve request given its key", function () {
-
+      /** @todo */
     });
 
     it.skip("sets the time of incoming request as a private field in request", function () {
